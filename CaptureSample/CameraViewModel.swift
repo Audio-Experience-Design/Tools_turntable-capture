@@ -551,6 +551,15 @@ class CameraViewModel: ObservableObject {
     private func getVideoDeviceForPhotogrammetry() throws -> AVCaptureDevice {
         var defaultVideoDevice: AVCaptureDevice?
 
+        let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInTrueDepthCamera],
+                                                                                   mediaType: .video,
+                                                                                   position: .front)
+        
+        // Try to use the truedepth camera, if available
+        if let trueDepth = videoDeviceDiscoverySession.devices.first {
+            return trueDepth
+        }
+        
         // Specify dual camera to get access to depth data.
         if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video,
                                                           position: .back) {
