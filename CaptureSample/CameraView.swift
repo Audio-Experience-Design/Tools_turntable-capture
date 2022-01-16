@@ -120,6 +120,11 @@ struct ScanToolbarView: View {
                     Image(systemName: "questionmark.circle")
                         .foregroundColor(Color.blue)
                 }
+                Spacer()
+                NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gear.circle")
+                        .foregroundColor(Color.blue)
+                }
             }
             
             if showInfo {
