@@ -102,11 +102,18 @@ class CameraViewModel: ObservableObject {
     @Published var timeUntilCaptureSecs: Double = 0
 
     @Published var oscSettings = OSCSettings(
-        hostname: "192.168.0.255",
-        port: "6000",
-        speed: "2.0",
-        angularResolution: "10"
-    )
+        hostname: UserDefaults.standard.string(forKey:"hostname") ?? "192.168.0.255",
+        port: UserDefaults.standard.string(forKey:"port") ?? "6000",
+        speed: UserDefaults.standard.string(forKey:"speed") ?? "2.0",
+        angularResolution: UserDefaults.standard.string(forKey:"angularResolution") ?? "10"
+    ){
+        didSet {
+            UserDefaults.standard.set(oscSettings.hostname, forKey:"hostname")
+            UserDefaults.standard.set(oscSettings.port, forKey:"port")
+            UserDefaults.standard.set(oscSettings.speed, forKey:"speed")
+            UserDefaults.standard.set(oscSettings.angularResolution, forKey:"angularResolution")
+        }
+    }
 
     var autoCaptureIntervalSecs: Double = 0
 
@@ -125,6 +132,8 @@ class CameraViewModel: ObservableObject {
     static let recommendedMaxPhotos = 200
     static let defaultAutomaticCaptureIntervalSecs: Double = 3.0
 
+    var oscClient: OSCClient?
+    
     init() {
         session = AVCaptureSession()
 
@@ -273,13 +282,13 @@ class CameraViewModel: ObservableObject {
     }
     
     func initOSC() {
-        let client = OSCClient(address: oscSettings.hostname, port: Int(oscSettings.port)!)
+        oscClient = OSCClient(address: oscSettings.hostname, port: Int(oscSettings.port)!)
         let message = OSCMessage(
             OSCAddressPattern("/Speed"),
             Float(oscSettings.speed)
         )
         
-        client.send(message)
+        oscClient?.send(message)
     }
 
     // MARK: - Private State
