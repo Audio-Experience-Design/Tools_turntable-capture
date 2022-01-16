@@ -12,6 +12,8 @@ import SwiftUI
 
 import os
 
+import SwiftOSC
+
 private let logger = Logger(subsystem: "com.apple.sample.CaptureSample",
                             category: "CameraViewModel")
 
@@ -253,6 +255,8 @@ class CameraViewModel: ObservableObject {
             self.session.startRunning()
             self.isSessionRunning = self.session.isRunning
         }
+        
+        initOSC()
     }
 
     func pauseSession() {
@@ -266,6 +270,16 @@ class CameraViewModel: ObservableObject {
         if isAutoCaptureActive {
             stopAutomaticCapture()
         }
+    }
+    
+    func initOSC() {
+        let client = OSCClient(address: oscSettings.hostname, port: Int(oscSettings.port)!)
+        let message = OSCMessage(
+            OSCAddressPattern("/Speed"),
+            Float(oscSettings.speed)
+        )
+        
+        client.send(message)
     }
 
     // MARK: - Private State
