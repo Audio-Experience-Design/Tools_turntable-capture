@@ -9,10 +9,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var hostname: String = "192.168.0.255"
-    @State var port: String = "6000"
-    @State var speed: String = "2.0"
-    @State var angularResolution: String = "10"
+    @ObservedObject var model: CameraViewModel
     
     var body: some View {
         GeometryReader { geomReader in
@@ -20,19 +17,19 @@ struct SettingsView: View {
                 Spacer()
                 
                 Text("Hostname")
-                TextField("Hostname", text: $hostname)
+                TextField("Hostname", text: $model.oscSettings.hostname)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Text("Port")
-                TextField("Port", text: $port)
+                TextField("Port", text: $model.oscSettings.port)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Text("Speed (degrees/s)")
-                TextField("Speed", text: $speed)
+                TextField("Speed", text: $model.oscSettings.speed)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Text("Angular rotation (degrees)")
-                TextField("Angular rotation", text: $angularResolution)
+                TextField("Angular rotation", text: $model.oscSettings.angularResolution)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Spacer()
@@ -45,8 +42,13 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
-}
+//struct SettingsView_Previews: PreviewProvider {
+//    @State var hostname: String = "192.168.0.255"
+//    @State var port: String = "6000"
+//    @State var speed: String = "2.0"
+//    @State var angularResolution: String = "10"
+//
+//    static var previews: some View {
+//        SettingsView(hostname: $hostname, port: $port, speed: $speed, angularResolution: $angularResolution)
+//    }
+//}

@@ -15,6 +15,13 @@ import os
 private let logger = Logger(subsystem: "com.apple.sample.CaptureSample",
                             category: "CameraViewModel")
 
+struct OSCSettings {
+    var hostname: String
+    var port: String
+    var speed: String
+    var angularResolution: String
+}
+
 /// This is a SwiftUI observable data model class that holds all of the app's state and handles all changes
 /// to that state. The app's views observe this object and update themseves to reflect changes.
 class CameraViewModel: ObservableObject {
@@ -91,6 +98,13 @@ class CameraViewModel: ObservableObject {
     /// If `isAutoCaptureActive` is `true`, this property contains the number of seconds until the
     /// next capture trigger.
     @Published var timeUntilCaptureSecs: Double = 0
+
+    @Published var oscSettings = OSCSettings(
+        hostname: "192.168.0.255",
+        port: "6000",
+        speed: "2.0",
+        angularResolution: "10"
+    )
 
     var autoCaptureIntervalSecs: Double = 0
 

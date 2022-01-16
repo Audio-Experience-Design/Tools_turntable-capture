@@ -121,7 +121,9 @@ struct ScanToolbarView: View {
                         .foregroundColor(Color.blue)
                 }
                 Spacer()
-                NavigationLink(destination: SettingsView()) {
+                NavigationLink(destination: SettingsView(model: model).onDisappear {
+                    print("%@", $model.oscSettings)
+                }) {
                     Image(systemName: "gear.circle")
                         .foregroundColor(Color.blue)
                 }
