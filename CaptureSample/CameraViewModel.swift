@@ -36,7 +36,7 @@ class CameraViewModel: ObservableObject {
 
         /// The user has selected automatic capture mode, which captures one
         /// image every specified interval.
-        case automatic(everySecs: Double)
+        case automatic
     }
 
     /// This property holds a reference to the most recently captured image and its metadata. The app
@@ -73,24 +73,6 @@ class CameraViewModel: ObservableObject {
                 triggerEveryTimer = nil
             }
         }
-
-        didSet {
-            // After this property is set, create a timer. If the user presses
-            // the capture button with automatic mode enabled, the app toggles
-            // the timer.
-            if case .automatic(let intervalSecs) = captureMode {
-                autoCaptureIntervalSecs = intervalSecs
-                triggerEveryTimer = TriggerEveryTimer(
-                    triggerEvery: autoCaptureIntervalSecs,
-                    onTrigger: {
-                        self.capturePhotoAndMetadata()
-                    },
-                    updateEvery: 1.0 / 30.0,  // 30 fps.
-                    onUpdate: { timeLeft in
-                        self.timeUntilCaptureSecs = timeLeft
-                    })
-            }
-        }
     }
 
     /// This property indicates if auto-capture is currently active. The app sets this to `true` while it's
@@ -105,7 +87,7 @@ class CameraViewModel: ObservableObject {
         hostname: UserDefaults.standard.string(forKey:"hostname") ?? "192.168.0.255",
         port: UserDefaults.standard.string(forKey:"port") ?? "6000",
         speed: UserDefaults.standard.string(forKey:"speed") ?? "2.0",
-        angularResolution: UserDefaults.standard.string(forKey:"angularResolution") ?? "10"
+        angularResolution: UserDefaults.standard.string(forKey:"angularResolution") ?? "10.0"
     ){
         didSet {
             UserDefaults.standard.set(oscSettings.hostname, forKey:"hostname")
@@ -115,7 +97,9 @@ class CameraViewModel: ObservableObject {
         }
     }
 
-    var autoCaptureIntervalSecs: Double = 0
+    var autoCaptureIntervalSecs: Double = 3.0 // default to 3s
+    
+    var captureProgressDegrees: Double = 0.0
 
     var readyToCapture: Bool {
         return captureFolderState != nil &&
@@ -130,7 +114,6 @@ class CameraViewModel: ObservableObject {
     static let maxPhotosAllowed = 250
     static let recommendedMinPhotos = 30
     static let recommendedMaxPhotos = 200
-    static let defaultAutomaticCaptureIntervalSecs: Double = 3.0
 
     var oscClient: OSCClient?
     
@@ -149,8 +132,8 @@ class CameraViewModel: ObservableObject {
         dispatchPrecondition(condition: .onQueue(DispatchQueue.main))
         switch captureMode {
         case .manual:
-            captureMode = .automatic(everySecs: CameraViewModel.defaultAutomaticCaptureIntervalSecs)
-        case .automatic(_):
+            captureMode = .automatic
+        case .automatic:
             captureMode = .manual
         }
     }
@@ -286,6 +269,39 @@ class CameraViewModel: ObservableObject {
         let message = OSCMessage(
             OSCAddressPattern("/Speed"),
             Float(oscSettings.speed)
+        )
+        
+        oscClient?.send(message)
+    }
+    
+    func initCaptureTimer() {
+        let angularResolution = Double(oscSettings.angularResolution) ?? 10.0
+        let speed = Double(oscSettings.speed) ?? 2.0
+        
+        autoCaptureIntervalSecs = 360.0/angularResolution/speed
+        
+        logger.log("Init capture timer with interval \(self.autoCaptureIntervalSecs)")
+        
+        triggerEveryTimer = TriggerEveryTimer(
+            triggerEvery: autoCaptureIntervalSecs,
+            onTrigger: {
+                self.capturePhotoAndMetadata()
+                
+                self.captureProgressDegrees += Double(self.oscSettings.angularResolution) ?? 0;
+                if(self.captureProgressDegrees >= 360.0){
+                    self.stopAutomaticCapture()
+                }
+            },
+            updateEvery: 1.0 / 30.0,  // 30 fps.
+            onUpdate: { timeLeft in
+                self.timeUntilCaptureSecs = timeLeft
+            })
+    }
+    
+    func sendStartCapture() {
+        let message = OSCMessage(
+            OSCAddressPattern("/Clockwise"),
+            Int(360)
         )
         
         oscClient?.send(message)
@@ -466,15 +482,20 @@ class CameraViewModel: ObservableObject {
     /// `.automatic` mode.
     private func startAutomaticCapture() {
         dispatchPrecondition(condition: .onQueue(.main))
+        
+        initCaptureTimer()
         precondition(triggerEveryTimer != nil)
-
+        
         logger.log("Start Auto Capture.")
         guard !triggerEveryTimer!.isRunning else {
             logger.error("Timer was already set!  Not setting again...")
             return
         }
         triggerEveryTimer!.start()
+        
         isAutoCaptureActive = true
+        captureProgressDegrees = 0.0
+        sendStartCapture()
     }
 
     /// This method stops the automatic capture timer.

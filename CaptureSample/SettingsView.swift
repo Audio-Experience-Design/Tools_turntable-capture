@@ -28,8 +28,8 @@ struct SettingsView: View {
                 TextField("Speed", text: $model.oscSettings.speed)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                Text("Angular rotation (degrees)")
-                TextField("Angular rotation", text: $model.oscSettings.angularResolution)
+                Text("Angular resolution (degrees)")
+                TextField("Angular resolution", text: $model.oscSettings.angularResolution)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 Spacer()
