@@ -146,8 +146,7 @@ class CameraViewModel: ObservableObject {
         case .manual:
             capturePhotoAndMetadata()
         case .automatic:
-            guard triggerEveryTimer != nil else { return }
-            if triggerEveryTimer!.isRunning {
+            if triggerEveryTimer?.isRunning == true {
                 stopAutomaticCapture()
             } else {
                 startAutomaticCapture()
