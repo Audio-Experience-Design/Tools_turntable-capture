@@ -277,7 +277,7 @@ class CameraViewModel: ObservableObject {
         let angularResolution = Double(oscSettings.angularResolution) ?? 10.0
         let speed = Double(oscSettings.speed) ?? 2.0
         
-        autoCaptureIntervalSecs = 360.0/angularResolution/speed
+        autoCaptureIntervalSecs = angularResolution/speed
         
         logger.log("Init capture timer with interval \(self.autoCaptureIntervalSecs)")
         
