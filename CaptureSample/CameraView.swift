@@ -61,7 +61,7 @@ struct CameraView: View {
             .navigationBarTitle("Scan")
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
-        }
+        }.navigationViewStyle(.stack)
     }
 }
 
