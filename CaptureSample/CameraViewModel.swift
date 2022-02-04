@@ -148,6 +148,7 @@ class CameraViewModel: ObservableObject {
         case .automatic:
             if triggerEveryTimer?.isRunning == true {
                 stopAutomaticCapture()
+                sendStop()
             } else {
                 startAutomaticCapture()
             }
@@ -303,6 +304,15 @@ class CameraViewModel: ObservableObject {
             Int(360)
         )
         
+        oscClient?.send(message)
+    }
+
+    func sendStop() {
+        let message = OSCMessage(
+            OSCAddressPattern("/Stop"),
+            Int(1)
+        )
+
         oscClient?.send(message)
     }
 
