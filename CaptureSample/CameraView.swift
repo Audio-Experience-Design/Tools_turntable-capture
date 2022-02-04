@@ -13,7 +13,7 @@ struct CameraView: View {
     static let buttonBackingOpacity: CGFloat = 0.15
     
     @ObservedObject var model: CameraViewModel
-    @State private var showInfo: Bool = false
+    @State private var showInfo: Bool = true
     
     let aspectRatio: CGFloat = 4.0 / 3.0
     let previewCornerRadius: CGFloat = 15.0

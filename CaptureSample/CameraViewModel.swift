@@ -65,7 +65,7 @@ class CameraViewModel: ObservableObject {
     /// This property returns the current capture mode. This property doesn't indicate whether the capture
     /// timer is currently running. When you set this to `.manual`, it cancels the timer used by automatic
     /// mode.
-    @Published var captureMode: CaptureMode = .manual {
+    @Published var captureMode: CaptureMode = .automatic {
         willSet(newMode) {
             // If the app is currently in auto mode, stop any timers.
             if case .automatic = captureMode {
