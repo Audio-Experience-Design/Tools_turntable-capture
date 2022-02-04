@@ -16,21 +16,35 @@ struct SettingsView: View {
             VStack {
                 Spacer()
                 
-                Text("Hostname")
-                TextField("Hostname", text: $model.oscSettings.hostname)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Group {
+                    Text("Hostname")
+                    TextField("Hostname", text: $model.oscSettings.hostname)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
                 
-                Text("Port")
-                TextField("Port", text: $model.oscSettings.port)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Group {
+                    Text("Port")
+                    TextField("Port", text: $model.oscSettings.port)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
                 
-                Text("Speed (degrees/s)")
-                TextField("Speed", text: $model.oscSettings.speed)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Group {
+                    Text("Speed (°/s)")
+                    TextField("Speed", text: $model.oscSettings.speed)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
                 
-                Text("Angular resolution (degrees)")
-                TextField("Angular resolution", text: $model.oscSettings.angularResolution)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Group {
+                    Text("Angular Resolution (°)")
+                    TextField("Angular Resolution", text: $model.oscSettings.angularResolution)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+
+                Group {
+                    Text("Rotation (°)")
+                    TextField("Rotation", text: $model.oscSettings.rotation)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
                 
                 Spacer()
                 

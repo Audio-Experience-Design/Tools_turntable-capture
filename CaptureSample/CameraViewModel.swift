@@ -22,6 +22,7 @@ struct OSCSettings {
     var port: String
     var speed: String
     var angularResolution: String
+    var rotation: String
 }
 
 /// This is a SwiftUI observable data model class that holds all of the app's state and handles all changes
@@ -87,13 +88,15 @@ class CameraViewModel: ObservableObject {
         hostname: UserDefaults.standard.string(forKey:"hostname") ?? "192.168.0.255",
         port: UserDefaults.standard.string(forKey:"port") ?? "6000",
         speed: UserDefaults.standard.string(forKey:"speed") ?? "2.0",
-        angularResolution: UserDefaults.standard.string(forKey:"angularResolution") ?? "10.0"
+        angularResolution: UserDefaults.standard.string(forKey:"angularResolution") ?? "10.0",
+        rotation: UserDefaults.standard.string(forKey:"rotation") ?? "360"
     ){
         didSet {
             UserDefaults.standard.set(oscSettings.hostname, forKey:"hostname")
             UserDefaults.standard.set(oscSettings.port, forKey:"port")
             UserDefaults.standard.set(oscSettings.speed, forKey:"speed")
             UserDefaults.standard.set(oscSettings.angularResolution, forKey:"angularResolution")
+            UserDefaults.standard.set(oscSettings.rotation, forKey:"rotation")
         }
     }
 
@@ -248,8 +251,9 @@ class CameraViewModel: ObservableObject {
         
         initOSC()
 
+        let rotation = Double(oscSettings.rotation) ?? 360
         let angularResolution = Double(oscSettings.angularResolution) ?? 10.0
-        maxPhotosAllowed = Int(ceil(360 / angularResolution))
+        maxPhotosAllowed = Int(ceil(rotation / angularResolution))
     }
 
     func pauseSession() {
@@ -289,7 +293,7 @@ class CameraViewModel: ObservableObject {
                 self.capturePhotoAndMetadata()
                 
                 self.captureProgressDegrees += Double(self.oscSettings.angularResolution) ?? 0;
-                if(self.captureProgressDegrees >= 360.0){
+                if(self.captureProgressDegrees >= Double(self.oscSettings.rotation) ?? 360){
                     self.stopAutomaticCapture()
                 }
             },
@@ -302,7 +306,7 @@ class CameraViewModel: ObservableObject {
     func sendStartCapture() {
         let message = OSCMessage(
             OSCAddressPattern("/Clockwise"),
-            Int(360)
+            Int(oscSettings.rotation)
         )
         
         oscClient?.send(message)
