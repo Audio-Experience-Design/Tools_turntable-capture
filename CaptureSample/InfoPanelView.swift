@@ -39,21 +39,6 @@ struct InfoPanelView: View {
                     .foregroundColor(.secondary)
                     .font(.caption)
                 Spacer()
-                Label(title: {
-                    Text("Recommended")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                },
-                icon: {
-                    ZStack {
-                        Capsule()
-                            .foregroundColor(CaptureCountProgressBar.unfilledProgressColor)
-                            .frame(width: 20, height: 7, alignment: .leading)
-                        Capsule()
-                            .foregroundColor(CaptureCountProgressBar.recommendedZoneColor)
-                            .frame(width: 20, height: 7, alignment: .leading)
-                    }
-                })
             }
             CaptureCountProgressBar(captureFolderState: captureFolderState)
         }
@@ -70,7 +55,6 @@ struct CaptureCountProgressBar: View {
     
     let height: CGFloat = 5
     let recommendedZoneHeight: CGFloat = 10
-    static let recommendedZoneColor = Color(red: 0, green: 1, blue: 0, opacity: 0.5)
     static let unfilledProgressColor = Color(red: 1, green: 1, blue: 1, opacity: 0.5)
     
     var body: some View {
@@ -92,20 +76,6 @@ struct CaptureCountProgressBar: View {
                            height: height,
                            alignment: .leading)
                     .foregroundColor(Color.white)
-                
-                // Draw another taller capsule to show the recommended number of images.
-                Capsule()
-                    .frame(width: CGFloat(Double(CameraViewModel.recommendedMaxPhotos -
-                                                    CameraViewModel.recommendedMinPhotos)
-                                            / Double(CameraViewModel.maxPhotosAllowed)) *
-                            geometryReader.size.width,
-                           height: recommendedZoneHeight,
-                           alignment: .leading)
-                    .foregroundColor(CaptureCountProgressBar.recommendedZoneColor)
-                    .offset(x: CGFloat(Double(CameraViewModel.recommendedMinPhotos) /
-                                        Double(CameraViewModel.maxPhotosAllowed)) *
-                                geometryReader.size.width,
-                            y: 0)
             }
         }
     }

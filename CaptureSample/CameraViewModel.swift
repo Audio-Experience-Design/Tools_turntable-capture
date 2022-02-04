@@ -112,8 +112,6 @@ class CameraViewModel: ObservableObject {
     }
 
     static let maxPhotosAllowed = 250
-    static let recommendedMinPhotos = 30
-    static let recommendedMaxPhotos = 200
 
     var oscClient: OSCClient?
     
