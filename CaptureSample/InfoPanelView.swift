@@ -40,7 +40,7 @@ struct InfoPanelView: View {
                     .font(.caption)
                 Spacer()
             }
-            CaptureCountProgressBar(captureFolderState: captureFolderState)
+            CaptureCountProgressBar(model: model, captureFolderState: captureFolderState)
         }
         .font(.caption)
         .transition(.move(edge: .top))
@@ -51,6 +51,7 @@ struct InfoPanelView: View {
 /// in the model. This view uses a transparent capsule wider than the progress bar to indicate the suggested
 /// number of photos for a good capture.
 struct CaptureCountProgressBar: View {
+    @ObservedObject var model: CameraViewModel
     @ObservedObject var captureFolderState: CaptureFolderState
     
     let height: CGFloat = 5
@@ -71,7 +72,7 @@ struct CaptureCountProgressBar: View {
                 // the same size as its background.
                 Capsule()
                     .frame(width: CGFloat(Double(captureFolderState.captures.count)
-                                            / Double(CameraViewModel.maxPhotosAllowed)
+                                            / Double(model.maxPhotosAllowed)
                                             * Double(geometryReader.size.width)),
                            height: height,
                            alignment: .leading)

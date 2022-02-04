@@ -103,15 +103,15 @@ class CameraViewModel: ObservableObject {
 
     func readyToCapture(state: CaptureFolderState?) -> Bool {
         return state != nil &&
-            state!.captures.count < CameraViewModel.maxPhotosAllowed &&
-                self.inProgressPhotoCaptureDelegates.count < 2
+            (state!.captures.count < self.maxPhotosAllowed || captureMode == .automatic) &&
+            self.inProgressPhotoCaptureDelegates.count < 2
     }
 
     var captureDir: URL? {
         return captureFolderState?.captureDir
     }
 
-    static let maxPhotosAllowed = 250
+    var maxPhotosAllowed: Int = 250
 
     var oscClient: OSCClient?
     
@@ -247,6 +247,9 @@ class CameraViewModel: ObservableObject {
         }
         
         initOSC()
+
+        let angularResolution = Double(oscSettings.angularResolution) ?? 10.0
+        maxPhotosAllowed = Int(ceil(360 / angularResolution))
     }
 
     func pauseSession() {
