@@ -59,8 +59,8 @@ struct SettingsView: View {
 //struct SettingsView_Previews: PreviewProvider {
 //    @State var hostname: String = "192.168.0.255"
 //    @State var port: String = "6000"
-//    @State var speed: String = "2.0"
-//    @State var angularResolution: String = "10"
+//    @State var speed: String = "3.0"
+//    @State var angularResolution: String = "5"
 //
 //    static var previews: some View {
 //        SettingsView(hostname: $hostname, port: $port, speed: $speed, angularResolution: $angularResolution)
