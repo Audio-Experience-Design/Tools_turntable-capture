@@ -495,6 +495,7 @@ class CameraViewModel: ObservableObject {
     /// This method starts the automatic capture timer, which the app only uses when the user enables
     /// `.automatic` mode.
     private func startAutomaticCapture() {
+        initOSC();
         dispatchPrecondition(condition: .onQueue(.main))
         
         initCaptureTimer()
