@@ -501,6 +501,7 @@ class CameraViewModel: ObservableObject {
     /// `.automatic` mode.
     private func startAutomaticCapture() {
         initOSC();
+        requestNewCaptureFolder()
         dispatchPrecondition(condition: .onQueue(.main))
         
         initCaptureTimer()
