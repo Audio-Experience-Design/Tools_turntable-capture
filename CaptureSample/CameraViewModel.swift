@@ -171,11 +171,16 @@ class CameraViewModel: ObservableObject {
         // publish it on the main thread.
         sessionQueue.async {
             do {
+                let curCaptureFolder = self.captureFolderState!.captureDir!
+                let curCaptureCount = self.captureFolderState!.captures.count
                 let newCaptureFolder = try CameraViewModel.createNewCaptureFolder()
                 logger.log("Created new capture folder: \"\(String(describing: self.captureDir))\"")
                 DispatchQueue.main.async {
                     logger.info("Publishing new capture folder: \"\(String(describing: self.captureDir))\"")
                     self.captureFolderState = newCaptureFolder
+                }
+                if curCaptureCount == 0 {
+                    CaptureFolderState.removeCaptureFolder(folder: curCaptureFolder)
                 }
             } catch {
                 logger.error("Can't create new capture folder!")
