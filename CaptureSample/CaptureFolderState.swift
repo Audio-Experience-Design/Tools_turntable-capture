@@ -125,8 +125,8 @@ class CaptureFolderState: ObservableObject {
         
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
+        formatter.dateFormat = "yyyy-MM-dd 'at' HH_mm_ss"
+        formatter.timeZone = TimeZone.current
         let timestamp = formatter.string(from: Date())
         let newCaptureDir = capturesFolder
             .appendingPathComponent(timestamp + "/", isDirectory: true)
