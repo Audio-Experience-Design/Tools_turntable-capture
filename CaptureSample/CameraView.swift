@@ -49,7 +49,7 @@ struct CameraView: View {
                         // The app shows this view when showInfo is true.
                         ScanToolbarView(model: model, showInfo: $showInfo).padding(.horizontal)
                         if showInfo {
-                            InfoPanelView(model: model)
+                            InfoPanelView(model: model, captureFolderState: model.captureFolderState!)
                                 .padding(.horizontal).padding(.top)
                         }
                         Spacer()

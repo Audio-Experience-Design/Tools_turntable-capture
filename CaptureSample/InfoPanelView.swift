@@ -13,6 +13,7 @@ import SwiftUI
 /// with the maximum number of images for a capture.
 struct InfoPanelView: View {
     @ObservedObject var model: CameraViewModel
+    @ObservedObject var captureFolderState: CaptureFolderState
     
     var body: some View {
         VStack {
@@ -34,7 +35,7 @@ struct InfoPanelView: View {
             }
             Spacer(minLength: 18)
             HStack {
-                Text("Captures: \(model.captureFolderState!.captures.count)")
+                Text("Captures: \(captureFolderState.captures.count)")
                     .foregroundColor(.secondary)
                     .font(.caption)
                 Spacer()
@@ -54,7 +55,7 @@ struct InfoPanelView: View {
                     }
                 })
             }
-            CaptureCountProgressBar(model: model)
+            CaptureCountProgressBar(captureFolderState: captureFolderState)
         }
         .font(.caption)
         .transition(.move(edge: .top))
@@ -65,7 +66,8 @@ struct InfoPanelView: View {
 /// in the model. This view uses a transparent capsule wider than the progress bar to indicate the suggested
 /// number of photos for a good capture.
 struct CaptureCountProgressBar: View {
-    @ObservedObject var model: CameraViewModel
+    @ObservedObject var captureFolderState: CaptureFolderState
+    
     let height: CGFloat = 5
     let recommendedZoneHeight: CGFloat = 10
     static let recommendedZoneColor = Color(red: 0, green: 1, blue: 0, opacity: 0.5)
@@ -84,7 +86,7 @@ struct CaptureCountProgressBar: View {
                 // The foreground bar is a full-opacity and left-aligned bar
                 // the same size as its background.
                 Capsule()
-                    .frame(width: CGFloat(Double(model.captureFolderState!.captures.count)
+                    .frame(width: CGFloat(Double(captureFolderState.captures.count)
                                             / Double(CameraViewModel.maxPhotosAllowed)
                                             * Double(geometryReader.size.width)),
                            height: height,
