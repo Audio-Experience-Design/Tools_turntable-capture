@@ -421,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 80B5C588F592FE5F1AC78D01 /* Pods-CaptureSample.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CaptureSample/CaptureSample.entitlements;
 				COMPILER_INDEX_STORE_ENABLE = NO;
@@ -446,6 +447,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 04E866C57BD7260D034B5E2D /* Pods-CaptureSample.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CaptureSample/CaptureSample.entitlements;
 				COMPILER_INDEX_STORE_ENABLE = NO;
