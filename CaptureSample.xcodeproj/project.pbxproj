@@ -59,6 +59,7 @@
 		C9E38E1925C8CB5D00171AB3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C9E38E1B25C8CB5D00171AB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7E52CB327943B4A00A58BF2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E7FCB0A227DB7EF300FF18EF /* CaptureSample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CaptureSample.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +123,7 @@
 		C9E38E1125C8CB5B00171AB3 /* CaptureSample */ = {
 			isa = PBXGroup;
 			children = (
+				E7FCB0A227DB7EF300FF18EF /* CaptureSample.entitlements */,
 				C9BA144425EF052300A19324 /* AsyncImageHelpers.swift */,
 				C96059EE25CA1FB100FDB64F /* CameraViewModel.swift */,
 				C91EEE4C25EDBE46009FD603 /* CaptureFolderState.swift */,
@@ -420,17 +422,18 @@
 			baseConfigurationReference = 80B5C588F592FE5F1AC78D01 /* Pods-CaptureSample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CaptureSample/CaptureSample.entitlements;
 				COMPILER_INDEX_STORE_ENABLE = NO;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"CaptureSample/Preview Content\"";
-				DEVELOPMENT_TEAM = L78T8Z3H54;
+				DEVELOPMENT_TEAM = AQAS6THPCT;
 				INFOPLIST_FILE = CaptureSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CaptureSample${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.axp.photogrammetry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -443,17 +446,18 @@
 			baseConfigurationReference = 04E866C57BD7260D034B5E2D /* Pods-CaptureSample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CaptureSample/CaptureSample.entitlements;
 				COMPILER_INDEX_STORE_ENABLE = NO;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"CaptureSample/Preview Content\"";
-				DEVELOPMENT_TEAM = L78T8Z3H54;
+				DEVELOPMENT_TEAM = AQAS6THPCT;
 				INFOPLIST_FILE = CaptureSample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.CaptureSample${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.axp.photogrammetry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
