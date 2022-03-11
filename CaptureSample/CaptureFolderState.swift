@@ -106,12 +106,10 @@ class CaptureFolderState: ObservableObject {
     /// The method returns a URL to the app's documents folder, where it stores all captures.
     static func capturesFolder() -> URL? {
         guard let documentsFolder =
-                try? FileManager.default.url(for: .documentDirectory,
-                                             in: .userDomainMask,
-                                             appropriateFor: nil, create: false) else {
+                FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.axp.photogrammetry") else {
             return nil
         }
-        return documentsFolder.appendingPathComponent("Captures/", isDirectory: true)
+        return documentsFolder.appendingPathComponent("Documents/", isDirectory: true)
     }
     
     /// This method attempts to create a capture directory for outputting the images and metadata. It names
