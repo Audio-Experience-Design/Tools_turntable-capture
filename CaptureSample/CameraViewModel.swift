@@ -101,10 +101,10 @@ class CameraViewModel: ObservableObject {
     
     var captureProgressDegrees: Double = 0.0
 
-    var readyToCapture: Bool {
-        return captureFolderState != nil &&
-            captureFolderState!.captures.count < CameraViewModel.maxPhotosAllowed &&
-            self.inProgressPhotoCaptureDelegates.count < 2
+    func readyToCapture(state: CaptureFolderState?) -> Bool {
+        return state != nil &&
+            state!.captures.count < CameraViewModel.maxPhotosAllowed &&
+                self.inProgressPhotoCaptureDelegates.count < 2
     }
 
     var captureDir: URL? {

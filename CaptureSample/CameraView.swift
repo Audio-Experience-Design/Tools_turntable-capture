@@ -83,7 +83,7 @@ struct CaptureButtonPanelView: View {
             }
             HStack {
                 Spacer()
-                CaptureButton(model: model)
+                CaptureButton(model: model, captureFolderState: model.captureFolderState!)
                 Spacer()
             }
             HStack {
@@ -153,21 +153,28 @@ struct CaptureButton: View {
         CaptureButton.innerPadding
     
     @ObservedObject var model: CameraViewModel
+    @ObservedObject var captureFolderState: CaptureFolderState
     
-    init(model: CameraViewModel) {
+    init(model: CameraViewModel, captureFolderState: CaptureFolderState) {
         self.model = model
+        self.captureFolderState = captureFolderState
     }
     
     var body: some View {
+        let disabled = !model.isCameraAvailable || !model.readyToCapture(state: captureFolderState)
+        
         Button(action: {
             model.captureButtonPressed()
         }, label: {
-            if model.isAutoCaptureActive {
+            if (disabled){
+                DisabledCaptureButtonView()
+            }
+            else if model.isAutoCaptureActive {
                 AutoCaptureButtonView(model: model)
             } else {
                 ManualCaptureButtonView()
             }
-        }).disabled(!model.isCameraAvailable || !model.readyToCapture)
+        }).disabled(disabled)
     }
 }
 
@@ -198,7 +205,25 @@ struct ManualCaptureButtonView: View {
                        height: CaptureButton.outerDiameter,
                        alignment: .center)
             Circle()
-                .foregroundColor(Color.white)
+                .foregroundColor(Color.red)
+                .frame(width: CaptureButton.innerDiameter,
+                       height: CaptureButton.innerDiameter,
+                       alignment: .center)
+        }
+    }
+}
+
+
+struct DisabledCaptureButtonView: View {
+    var body: some View {
+        ZStack {
+            Circle()
+                .strokeBorder(Color.init(white: 0.2), lineWidth: CaptureButton.strokeWidth)
+                .frame(width: CaptureButton.outerDiameter,
+                       height: CaptureButton.outerDiameter,
+                       alignment: .center)
+            Circle()
+                .foregroundColor(Color.init(white: 0.2))
                 .frame(width: CaptureButton.innerDiameter,
                        height: CaptureButton.innerDiameter,
                        alignment: .center)
@@ -211,6 +236,7 @@ struct CaptureModeButton: View {
     static let backingDiameter = CaptureModeButton.toggleDiameter * 2.0
     
     @ObservedObject var model: CameraViewModel
+    
     var frameWidth: CGFloat
     
     var body: some View {
