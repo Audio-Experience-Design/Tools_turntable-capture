@@ -27,7 +27,7 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>CaptureSample uses the camera to take photos and preview video.</string>
+	<string>TurntableCapture uses the camera to take photos and preview video.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.com.axp.photogrammetry</key>
@@ -35,7 +35,7 @@
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
 			<key>NSUbiquitousContainerName</key>
-			<string>Photogrammetry Capture</string>
+			<string>TurntableCapture</string>
 			<key>NSUbiquitousContainerSupportedFolderLevels</key>
 			<string>Any</string>
 		</dict>

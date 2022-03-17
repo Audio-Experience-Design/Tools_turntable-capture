@@ -8,7 +8,7 @@ Custom app subclass.
 import SwiftUI
 
 @main
-struct CaptureSampleApp: App {
+struct TurntableCaptureApp: App {
     @StateObject var model = CameraViewModel()
     
     var body: some Scene {

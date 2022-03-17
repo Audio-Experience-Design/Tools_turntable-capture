@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C9E38E0E25C8CB5B00171AB3"
-               BuildableName = "CaptureSample.app"
-               BlueprintName = "CaptureSample"
-               ReferencedContainer = "container:CaptureSample.xcodeproj">
+               BuildableName = "TurntableCapture.app"
+               BlueprintName = "TurntableCapture"
+               ReferencedContainer = "container:TurntableCapture.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9E38E0E25C8CB5B00171AB3"
-            BuildableName = "CaptureSample.app"
-            BlueprintName = "CaptureSample"
-            ReferencedContainer = "container:CaptureSample.xcodeproj">
+            BuildableName = "TurntableCapture.app"
+            BlueprintName = "TurntableCapture"
+            ReferencedContainer = "container:TurntableCapture.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C9E38E0E25C8CB5B00171AB3"
-            BuildableName = "CaptureSample.app"
-            BlueprintName = "CaptureSample"
-            ReferencedContainer = "container:CaptureSample.xcodeproj">
+            BuildableName = "TurntableCapture.app"
+            BlueprintName = "TurntableCapture"
+            ReferencedContainer = "container:TurntableCapture.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
