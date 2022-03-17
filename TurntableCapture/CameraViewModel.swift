@@ -88,7 +88,7 @@ class CameraViewModel: ObservableObject {
         hostname: UserDefaults.standard.string(forKey:"hostname") ?? "192.168.0.255",
         port: UserDefaults.standard.string(forKey:"port") ?? "6000",
         speed: UserDefaults.standard.string(forKey:"speed") ?? "3.0",
-        angularResolution: UserDefaults.standard.string(forKey:"angularResolution") ?? "10.0",
+        angularResolution: UserDefaults.standard.string(forKey:"angularResolution") ?? "5.0",
         rotation: UserDefaults.standard.string(forKey:"rotation") ?? "360"
     ){
         didSet {
@@ -257,7 +257,7 @@ class CameraViewModel: ObservableObject {
         initOSC()
 
         let rotation = Double(oscSettings.rotation) ?? 360
-        let angularResolution = Double(oscSettings.angularResolution) ?? 10.0
+        let angularResolution = Double(oscSettings.angularResolution) ?? 5.0
         maxPhotosAllowed = Int(ceil(rotation / angularResolution))
     }
 
@@ -285,7 +285,7 @@ class CameraViewModel: ObservableObject {
     }
     
     func initCaptureTimer() {
-        let angularResolution = Double(oscSettings.angularResolution) ?? 10.0
+        let angularResolution = Double(oscSettings.angularResolution) ?? 5.0
         let speed = Double(oscSettings.speed) ?? 3.0
         
         autoCaptureIntervalSecs = angularResolution/speed
